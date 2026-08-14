@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>☆ILYNoxia☆ Official Merch</title>
+<style>
+  :root{
+    --face:#ece9d8;           /* classic XP window body */
+    --face-dark:#d4d0c8;
+    --hi:#ffffff;              /* bevel highlight */
+    --sh:#848078;              /* bevel shadow */
+    --sh-dark:#404040;
+    --titlebar-a:#0a58d6;
+    --titlebar-b:#3f93f0;
+    --titlebar-b2:#0850c8;
+    --ink:#000000;
+    --ink-soft:#333333;
+    --link:#0000EE;
+    --link-visited:#551A8B;
+    --online:#3fa53f;
+    --away:#c98c1a;
+    --busy:#c3283e;
+    --orange:#ff6a00;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:Tahoma, Verdana, Arial, sans-serif;
+    font-size:12px;
+    color:var(--ink);
+    min-height:100vh;
+    background-color:#3f7fd6;
+    background-image:
+      linear-gradient(180deg,
+        #2f6fd0 0%, #4a8ee0 16%, #79b3ee 34%, #a9d3f2 50%, #cfe8fb 62%, #e8f4fd 68%, #e8f4fd 100%);
+    background-attachment:fixed;
+    position:relative;
+    overflow-x:hidden;
+  }
+  /* flat clip-art clouds, hard edges, no blur */
+  .cloud{ position:fixed; background:#fff; border-radius:50%; opacity:0.9; z-index:0; }
+  .cloud::before, .cloud::after{ content:""; position:absolute; background:#fff; border-radius:50%; }
+  .c1{ width:120px; height:36px; top:6%; left:8%; }
+  .c1::before{ width:60px; height:60px; top:-26px; left:14px; }
+  .c1::after{ width:44px; height:44px; top:-18px; left:60px; }
+  .c2{ width:90px; height:28px; top:11%; left:64%; }
+  .c2::before{ width:44px; height:44px; top:-20px; left:10px; }
+  .c2::after{ width:34px; height:34px; top:-14px; left:44px; }
+  .c3{ width:70px; height:22px; top:5%; left:40%; opacity:0.75; }
+  .c3::before{ width:34px; height:34px; top:-16px; left:8px; }
+
+  /* rolling hill, flat bands like old low-color jpg */
+  .hill{
+    position:fixed; left:-15%; right:-15%; bottom:0; height:34vh; min-height:220px; z-index:0;
+    background:#5fae2f;
+    border-radius:50% 50% 0 0/100% 100% 0 0;
+    transform:scaleX(1.4);
+    box-shadow: 0 -3px 0 rgba(0,0,0,0.08) inset;
+  }
+  .hill::before{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, #79c94a 0%, #5fae2f 40%, #3f8a1f 100%);
+    border-radius:inherit;
+  }
+
+  a{ color:var(--link); }
+  a:visited{ color:var(--link-visited); }
+
+  /* ===== TASKBAR ===== */
+  .taskbar{
+    position:sticky; top:0; z-index:100;
+    display:flex; align-items:center; gap:10px;
+    padding:4px 8px;
+    background:linear-gradient(180deg, #2a58a8 0%, #1c3f82 100%);
+    border-bottom:2px solid #0d2456;
+    box-shadow:0 2px 0 rgba(0,0,0,0.25);
+  }
+  .start-btn{
+    display:flex; align-items:center; gap:6px;
+    padding:4px 14px 4px 8px; border-radius:0 10px 10px 0;
+    background:linear-gradient(180deg, #6fcf4a 0%, #3f9a1f 55%, #2f8a10 100%);
+    border:1px solid #2a6f10;
+    color:#fff; font-weight:bold; font-size:13px; font-style:italic;
+    text-shadow:1px 1px 1px rgba(0,0,0,0.4);
+    cursor:pointer; flex-shrink:0;
+  }
+  .taskbar-sep{ width:1px; align-self:stretch; background:rgba(255,255,255,0.25); }
+  .taskbar-brand{
+    color:#fff; font-weight:bold; font-size:12px; text-shadow:1px 1px 1px rgba(0,0,0,0.4);
+    display:flex; align-items:center; gap:5px;
+  }
+  .taskbar-spacer{flex:1;}
+  .tray-item{
+    display:flex; align-items:center; gap:6px;
+    background:#1c3f82; border:1px solid #0d2456; border-radius:2px;
+    padding:3px 10px; color:#fff; font-size:11px; font-weight:bold;
+    cursor:pointer;
+  }
+  .tray-item:hover{ background:#254c96; }
+  .status-dot{width:7px;height:7px;border-radius:50%;background:var(--online); box-shadow:0 0 0 1px rgba(0,0,0,0.3);}
+  .clock-box{ background:#0d2456; border:1px solid #04162e; border-radius:2px; padding:3px 10px; color:#dfe9ff; font-size:11px; }
+
+  /* ===== CLASSIC WINDOW CHROME ===== */
+  .win{
+    background:var(--face);
+    border:1px solid #0a3d91;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.35), inset 1px 1px 0 var(--hi), inset -1px -1px 0 var(--sh);
+    border-radius:7px 7px 3px 3px;
+    overflow:hidden;
+    position:relative; z-index:1;
+  }
+  .titlebar{
+    display:flex; align-items:center; gap:6px;
+    padding:4px 4px 4px 8px;
+    background:linear-gradient(180deg, var(--titlebar-b) 0%, var(--titlebar-a) 45%, var(--titlebar-b2) 100%);
+    border-bottom:1px solid #06306e;
+  }
+  .titlebar-icon{ font-size:13px; }
+  .titlebar-text{ color:#fff; font-weight:bold; font-size:12px; text-shadow:1px 1px 1px rgba(0,0,0,0.5); flex:1; }
+  .winbtn{
+    width:20px; height:19px; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(180deg,#f6f6f6,#d8d8d8);
+    border:1px solid #8a8a8a; border-radius:2px;
+    font-size:11px; font-weight:bold; color:#1a1a1a; cursor:pointer;
+    box-shadow:inset 1px 1px 0 #fff;
+  }
+  .winbtn.close{ background:linear-gradient(180deg,#f28b8b,#d4372f); color:#fff; border-color:#8a1a14; }
+  .win-body{ padding:10px; }
+
+  /* beveled classic buttons */
+  .btn3d{
+    font-family:Tahoma, Verdana, sans-serif; font-weight:bold; font-size:11.5px;
+    color:var(--ink); background:var(--face);
+    border:1px solid #4b4b4b;
+    box-shadow: inset 1px 1px 0 var(--hi), inset -1px -1px 0 var(--sh);
+    padding:5px 14px; cursor:pointer; border-radius:2px;
+  }
+  .btn3d:active{ box-shadow: inset -1px -1px 0 var(--hi), inset 1px 1px 0 var(--sh); }
+  .btn3d.green{ background:#dff0d0; }
+  .btn3d.orange{ background:#ffe3c2; }
+  .btn3d.small{ padding:3px 9px; font-size:11px; }
+  .btn3d[disabled]{ color:#888; cursor:default; }
+
+  .sunken{
+    background:#fff; border:1px solid #4b4b4b;
+    box-shadow: inset 1px 1px 0 var(--sh), inset -1px -1px 0 var(--hi);
+    padding:4px 6px;
+  }
+
+  marquee{
+    background:#000; color:#ffcc00; font-weight:bold; font-size:12px;
+    padding:4px 0; border-top:2px solid #ffcc00; border-bottom:2px solid #ffcc00;
+    letter-spacing:0.5px;
+  }
+
+  /* ===== HERO ===== */
+  .wrap{max-width:900px; margin:0 auto; padding:0 14px;}
+  .hero-wrap{max-width:900px; margin:16px auto 0; padding:0 14px; position:relative; z-index:1;}
+  .hero-body{ padding:22px 20px 24px; text-align:center; background:linear-gradient(180deg,#fff 0%, var(--face) 100%);}
+  .hero-title{
+    font-family:"Comic Sans MS", "Chalkboard SE", cursive;
+    font-weight:bold;
+    font-size: clamp(28px, 6vw, 46px);
+    color:#0b3d91;
+    text-shadow: 2px 2px 0 #fff, 3px 3px 0 rgba(0,0,0,0.25);
+    margin:4px 0 8px;
+    letter-spacing:0.5px;
+  }
+  .hero-title .star{ color:var(--orange); }
+  .hero-sub{ font-size:13px; color:var(--ink-soft); max-width:480px; margin:0 auto 14px; }
+  .away-message{
+    font-style:italic; font-size:12px; color:#5a2a8a;
+    background:#f4eaff; display:inline-block; padding:5px 12px;
+    border:1px dashed #9a6fd0; margin-bottom:16px;
+  }
+  .best-viewed{ font-size:10px; color:#666; margin-top:10px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .main-wrap{max-width:900px; margin:16px auto 40px; padding:0 14px; display:grid; grid-template-columns: 1fr 250px; gap:14px; position:relative; z-index:1;}
+  @media (max-width:760px){ .main-wrap{grid-template-columns:1fr;} }
+
+  /* MSN-style icon toolbar */
+  .msn-toolbar{
+    display:flex; gap:2px; background:var(--face-dark); border-bottom:1px solid #a8a496;
+    padding:4px 6px; overflow-x:auto;
+  }
+  .msn-tool{
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+    padding:4px 9px; cursor:pointer; flex-shrink:0;
+    font-size:9.5px; font-weight:bold; color:var(--ink-soft);
+    border:1px solid transparent; border-radius:2px;
+  }
+  .msn-tool:hover{ background:#fff; border-color:#a8a496; }
+  .msn-tool .ic{ font-size:16px; }
+
+  /* Chat spotlight window */
+  .chat-menubar{
+    display:flex; gap:14px; padding:4px 10px; font-size:11px; color:var(--ink-soft);
+    background:var(--face-dark); border-bottom:1px solid #a8a496;
+  }
+  .chat-split{ display:flex; }
+  .chat-main{ flex:1; padding:10px; min-width:0; }
+  .chat-to{ font-size:11px; font-weight:bold; color:var(--ink-soft); margin-bottom:6px; }
+  .chat-to b{ color:#0b3d91; }
+  .chat-log{ min-height:90px; padding:8px; font-size:12px; line-height:1.6; }
+  .chat-log .who{ font-weight:bold; color:#7a2fbf; }
+  .chat-photos{ width:96px; flex-shrink:0; padding:10px 10px 10px 0; display:flex; flex-direction:column; gap:8px; }
+  .chat-photo{
+    width:100%; aspect-ratio:1/1;
+    border:2px solid #7a7a7a; box-shadow:1px 1px 0 #fff inset;
+    display:flex; align-items:center; justify-content:center; font-size:30px;
+  }
+  .chat-photo.avatar-photo{ background:#ffd77a; }
+  .chat-photo.duck-photo{ background:#fff29a; }
+  .chat-compose{ padding:8px 10px 10px; border-top:1px solid #a8a496; }
+  .compose-icons{ display:flex; align-items:center; gap:8px; font-size:14px; margin-bottom:6px; }
+  .compose-box{ min-height:36px; padding:6px 8px; font-size:11.5px; color:#777; font-style:italic; }
+  .compose-actions{ display:flex; justify-content:flex-end; gap:6px; margin-top:6px; }
+
+  .section-title{ font-weight:bold; font-size:12px; color:#fff; }
+
+  /* Buddy list / product rows */
+  .buddy-list{ padding:6px; }
+  .buddy{
+    display:flex; align-items:center; gap:10px;
+    padding:8px; margin:4px 0; border:1px solid transparent; border-radius:2px;
+    cursor:pointer;
+  }
+  .buddy:hover{ background:#e4edfb; border-color:#a8c4e8; }
+  .buddy.flash{ animation:flash 0.5s ease; }
+  @keyframes flash{ 0%,100%{background:transparent;} 40%{background:#fff2c2;} }
+  .avatar{
+    width:40px;height:40px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px; font-weight:bold; color:#fff;
+    border:2px solid #7a7a7a; box-shadow:1px 1px 0 #fff inset;
+    position:relative;
+  }
+  .status-badge{
+    position:absolute; bottom:-3px; right:-3px; width:11px;height:11px;border-radius:50%;
+    border:2px solid #fff; box-shadow:0 0 0 1px #555;
+  }
+  .status-badge.online{background:var(--online);}
+  .status-badge.away{background:var(--away);}
+  .status-badge.busy{background:var(--busy);}
+  .buddy-info{flex:1; min-width:0;}
+  .buddy-name{ font-weight:bold; font-size:12.5px; color:var(--ink); }
+  .buddy-status-text{ font-size:10.5px; font-weight:bold; margin-left:6px;}
+  .buddy-status-text.online{color:#2e8a2e;}
+  .buddy-status-text.away{color:#a67014;}
+  .buddy-status-text.busy{color:#a41e33;}
+  .buddy-msg{ font-size:11px; color:#555; font-style:italic; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .buddy-right{ display:flex; flex-direction:column; align-items:flex-end; gap:5px; flex-shrink:0;}
+  .price-tag{ font-weight:bold; font-size:12.5px; color:#0b3d91; }
+  .new-badge{ background:#ff2020; color:#fff; font-size:9px; font-weight:bold; padding:1px 5px; border-radius:2px; animation:blinker 1s step-start infinite; margin-left:5px;}
+  @keyframes blinker{ 50%{ opacity:0; } }
+
+  /* Sidebar */
+  .sidebar{display:flex; flex-direction:column; gap:12px;}
+  .cart-body{padding:10px;}
+  .cart-empty{font-size:11.5px; color:#666; font-style:italic; text-align:center; padding:10px 0;}
+  .cart-item{
+    display:flex; justify-content:space-between; align-items:center; gap:6px;
+    font-size:11.5px; font-weight:bold; color:var(--ink);
+    padding:5px 0; border-bottom:1px dotted #999;
+  }
+  .cart-item .meta{ font-weight:normal; font-size:10px; color:#666; }
+  .cart-item span.name{flex:1; min-width:0;}
+  .cart-remove{ cursor:pointer; color:#c3283e; font-weight:900; background:none; border:none; font-size:13px; }
+  .cart-total{ display:flex; justify-content:space-between; font-weight:bold; color:#0b3d91; margin-top:8px; padding-top:8px; border-top:1px solid #a8a496; font-size:12.5px;}
+  .newsletter-body{padding:10px;}
+  .newsletter-body p{font-size:11px; color:#555; margin:0 0 8px;}
+  .nl-input{ width:100%; padding:5px 6px; margin-bottom:6px; font-family:Tahoma,sans-serif; font-size:11.5px; }
+  .counter-box{ text-align:center; padding:10px; font-size:11px; color:#333; }
+  .counter-digits{
+    display:inline-flex; gap:2px; background:#000; padding:4px 6px; border:2px solid #555; margin-top:4px;
+  }
+  .counter-digits span{ background:#111; color:#3fff5f; font-family:'Courier New', monospace; font-weight:bold; font-size:15px; padding:0 3px; }
+
+  /* Product modal */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(0,0,0,0.45);
+    display:none; align-items:center; justify-content:center; z-index:300; padding:16px;
+  }
+  .modal-overlay.open{ display:flex; }
+  .product-modal{ width:100%; max-width:520px; max-height:90vh; overflow-y:auto; }
+  .pm-body{ display:flex; gap:14px; padding:12px; flex-wrap:wrap; }
+  .pm-gallery{ width:190px; flex-shrink:0; }
+  .pm-main-photo{
+    width:100%; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center;
+    font-size:64px; border:2px solid #7a7a7a; box-shadow:1px 1px 0 #fff inset; margin-bottom:6px;
+  }
+  .pm-thumbs{ display:flex; gap:5px; }
+  .pm-thumb{
+    width:56px; height:56px; display:flex; align-items:center; justify-content:center;
+    font-size:22px; border:2px solid #b0b0b0; cursor:pointer;
+  }
+  .pm-thumb.active{ border-color:#0b3d91; box-shadow:0 0 0 1px #0b3d91; }
+  .pm-details{ flex:1; min-width:180px; }
+  .pm-name{ font-weight:bold; font-size:15px; color:#0b3d91; margin-bottom:2px; }
+  .pm-status{ font-size:11px; font-weight:bold; margin-bottom:8px; }
+  .pm-price{ font-weight:bold; font-size:16px; color:#333; margin-bottom:8px; }
+  .pm-away{ font-style:italic; font-size:11.5px; color:#5a2a8a; background:#f4eaff; border:1px dashed #9a6fd0; padding:4px 8px; margin-bottom:10px; display:inline-block; }
+  .pm-desc{ font-size:11.5px; color:#333; line-height:1.6; margin-bottom:10px; }
+  .pm-desc li{ margin-bottom:2px; }
+  .pm-field-label{ font-weight:bold; font-size:11px; color:#333; margin:8px 0 4px; }
+  .size-row{ display:flex; gap:6px; flex-wrap:wrap; }
+  .size-pill{
+    padding:5px 12px; font-size:11.5px; font-weight:bold; cursor:pointer;
+    border:1px solid #4b4b4b; background:var(--face);
+    box-shadow: inset 1px 1px 0 var(--hi), inset -1px -1px 0 var(--sh);
+  }
+  .size-pill.sel{ background:#c9e0ff; border-color:#0b3d91; box-shadow:inset 1px 1px 3px rgba(11,61,145,0.4); }
+  .qty-row{ display:flex; align-items:center; gap:8px; }
+  .qty-row .btn3d{ padding:3px 10px; }
+  .qty-num{ font-weight:bold; font-size:13px; min-width:20px; text-align:center; }
+  .pm-footer{ padding:10px 12px; border-top:1px solid #a8a496; display:flex; justify-content:space-between; align-items:center; gap:10px; background:var(--face-dark); }
+  .pm-size-warning{ font-size:10.5px; color:#a41e33; font-weight:bold; visibility:hidden; }
+
+  footer{ max-width:900px; margin:0 auto 24px; padding:10px 14px; text-align:center; position:relative; z-index:1; }
+  .status-strip{
+    display:inline-block; background:var(--face); border:1px solid #0a3d91; border-radius:3px;
+    padding:6px 16px; font-size:10.5px; color:#444;
+  }
+  .webring{ margin-top:8px; font-size:10.5px; color:#eef; }
+  .webring a{ color:#fff700; font-weight:bold; }
+
+  .toast{
+    position:fixed; bottom:16px; right:16px; z-index:400;
+    background:var(--face); border:1px solid #0a3d91; border-radius:3px;
+    padding:9px 14px; box-shadow:2px 2px 6px rgba(0,0,0,0.4);
+    font-size:11.5px; font-weight:bold; color:#0b3d91;
+    transform:translateY(20px); opacity:0; transition:all .3s ease;
+    pointer-events:none;
+  }
+  .toast.show{ transform:translateY(0); opacity:1; }
+
+  /* ===== LEGAL FOOTER ===== */
+  .legal-bar{
+    max-width:900px; margin:0 auto 6px; padding:10px 14px;
+    position:relative; z-index:1; text-align:center;
+  }
+  .legal-links{
+    background:var(--face); border:1px solid #0a3d91; border-radius:3px;
+    padding:8px 14px; font-size:10.5px; color:#333;
+    display:flex; flex-wrap:wrap; justify-content:center; gap:4px 10px;
+  }
+  .legal-links a{ color:var(--link); text-decoration:underline; cursor:pointer; }
+  .legal-links .sep{ color:#999; }
+  .copyright-line{
+    font-size:10px; color:#eef; margin-top:6px; line-height:1.6;
+  }
+  .copyright-line a{ color:#fff700; }
+  .biz-info{ font-size:10px; color:#dde8ff; margin-top:2px; }
+  .legal-disclaimer{
+    max-width:900px; margin:0 auto 20px; padding:0 14px; position:relative; z-index:1;
+  }
+  .legal-disclaimer-box{
+    background:#fff8d8; border:1px solid #b89a2a; font-size:10px; color:#5a4a10;
+    padding:6px 10px; text-align:center; border-radius:2px;
+  }
+
+  /* Legal document modal */
+  .legal-modal{ max-width:560px; }
+  .legal-modal .win-body{ padding:0; }
+  .legal-text{
+    max-height:52vh; overflow-y:auto; padding:12px 14px; font-size:11.5px; line-height:1.65; color:#222;
+  }
+  .legal-text h3{ font-size:12.5px; color:#0b3d91; margin:14px 0 4px; }
+  .legal-text h3:first-child{ margin-top:0; }
+  .legal-text p{ margin:0 0 8px; }
+  .legal-text ul{ margin:0 0 8px; padding-left:18px; }
+  .legal-modal-footer{ padding:9px 14px; border-top:1px solid #a8a496; background:var(--face-dark); text-align:right; }
+
+  /* Cookie consent bar */
+  .cookie-bar{
+    position:fixed; left:0; right:0; bottom:0; z-index:500;
+    background:linear-gradient(180deg, var(--face) 0%, var(--face-dark) 100%);
+    border-top:2px solid #0a3d91; box-shadow:0 -3px 8px rgba(0,0,0,0.35);
+    padding:9px 14px; display:none; align-items:center; gap:12px; flex-wrap:wrap;
+    font-size:11px; color:#222;
+  }
+  .cookie-bar.show{ display:flex; }
+  .cookie-bar .cookie-icon{ font-size:20px; flex-shrink:0; }
+  .cookie-bar p{ margin:0; flex:1; min-width:200px; }
+  .cookie-bar .btns{ display:flex; gap:6px; flex-shrink:0; }
+</style>
+</head>
+<body>
+
+  <div class="cloud c1"></div>
+  <div class="cloud c2"></div>
+  <div class="cloud c3"></div>
+  <div class="hill"></div>
+
+  <!-- TASKBAR -->
+  <div class="taskbar">
+    <div class="start-btn">🪟 start</div>
+    <div class="taskbar-sep"></div>
+    <div class="taskbar-brand">🦋 ☆ILYNoxia☆ Merch</div>
+    <div class="taskbar-spacer"></div>
+    <div class="tray-item" onclick="document.getElementById('buddyListSection').scrollIntoView({behavior:'smooth'})">
+      <span class="status-dot"></span> Shop Online
+    </div>
+    <div class="tray-item" id="cartTaskbarBtn" onclick="toggleCart(true)">🛒 Cart (<span id="cartCount">0</span>)</div>
+    <div class="clock-box" id="clockBox">10:51 PM</div>
+  </div>
+
+  <marquee behavior="scroll" scrollamount="4">★ ☆ILYNoxia☆ OFFICIAL MERCH IS LIVE ★ "CLOSE MY EYES" 7" VINYL - LIMITED RUN ★ FREE STICKER W/ EVERY ORDER ★ SIGN THE GUESTBOOK BELOW ★</marquee>
+
+  <!-- HERO -->
+  <div class="hero-wrap">
+    <div class="win">
+      <div class="titlebar">
+        <span class="titlebar-icon">✦</span>
+        <span class="titlebar-text">ILYNoxia_MerchStore.exe</span>
+        <div class="winbtn">_</div>
+        <div class="winbtn">□</div>
+        <div class="winbtn close">X</div>
+      </div>
+      <div class="hero-body">
+        <h1 class="hero-title"><span class="star">☆</span>ILYNoxia<span class="star">☆</span></h1>
+        <p class="hero-sub">Official merch — soft hoodies, glossy pins, and a vinyl drop, wrapped in the coziest early-2000s shop on the internet.</p>
+        <div class="away-message">💬 "brb designing the merch page, y2k gradients only" — ILYNoxia's away message</div>
+        <br>
+        <button class="btn3d green" onclick="document.getElementById('buddyListSection').scrollIntoView({behavior:'smooth'})">▶ Shop the Drop</button>
+        <div class="best-viewed">best viewed at 1024x768 · Netscape &amp; IE compatible</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAT SPOTLIGHT WINDOW -->
+  <div class="hero-wrap" style="margin-top:14px;">
+    <div class="win">
+      <div class="titlebar">
+        <span class="titlebar-icon">💬</span>
+        <span class="titlebar-text">Conversation — ☆ILYNoxia☆</span>
+        <div class="winbtn">_</div>
+        <div class="winbtn">□</div>
+        <div class="winbtn close">X</div>
+      </div>
+      <div class="chat-menubar"><span>File</span><span>Edit</span><span>Actions</span><span>Tools</span><span>Help</span></div>
+      <div class="chat-split">
+        <div class="chat-main">
+          <div class="chat-to">To: <b>You</b></div>
+          <div class="sunken chat-log">
+            <span class="who">☆ILYNoxia☆ says:</span> hey!! new merch just dropped 🌟 the "Close My Eyes" vinyl is limited run, only a few left<br><br>
+            <span class="who">☆ILYNoxia☆ says:</span> click on any item below to see pics, pick a size, and add it to your cart ➜
+          </div>
+        </div>
+        <div class="chat-photos">
+          <div class="chat-photo avatar-photo">☆</div>
+          <div class="chat-photo duck-photo">🦆</div>
+        </div>
+      </div>
+      <div class="chat-compose">
+        <div class="compose-icons">🅰️ 😊 📎 🎤 🔍</div>
+        <div class="sunken compose-box">Type a reply, or just scroll down and start shopping...</div>
+        <div class="compose-actions">
+          <button class="btn3d small" onclick="document.getElementById('buddyListSection').scrollIntoView({behavior:'smooth'})">Send</button>
+          <button class="btn3d small orange" onclick="document.getElementById('buddyListSection').scrollIntoView({behavior:'smooth'})">Search Merch</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main-wrap">
+    <!-- BUDDY LIST / PRODUCTS -->
+    <div class="win" id="buddyListSection">
+      <div class="titlebar">
+        <span class="titlebar-icon">👥</span>
+        <span class="titlebar-text">Merch (Online) — 6 items</span>
+        <div class="winbtn">_</div>
+        <div class="winbtn">□</div>
+        <div class="winbtn close">X</div>
+      </div>
+      <div class="msn-toolbar">
+        <div class="msn-tool"><span class="ic">🆕</span>New Drops</div>
+        <div class="msn-tool"><span class="ic">📦</span>Restock</div>
+        <div class="msn-tool"><span class="ic">📸</span>Lookbook</div>
+        <div class="msn-tool"><span class="ic">⭐</span>Reviews</div>
+        <div class="msn-tool"><span class="ic">🎁</span>Bundles</div>
+        <div class="msn-tool"><span class="ic">💌</span>Wishlist</div>
+      </div>
+      <div class="buddy-list" id="buddyList"></div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="win">
+        <div class="titlebar">
+          <span class="titlebar-icon">🛒</span>
+          <span class="titlebar-text">Cart Gadget</span>
+        </div>
+        <div class="cart-body">
+          <div id="sidebarCartList"><div class="cart-empty">Click an item to add it here ✦</div></div>
+          <div class="cart-total" id="sidebarCartTotal" style="display:none;"><span>Total</span><span id="sidebarCartTotalAmt">$0</span></div>
+          <button class="btn3d" style="width:100%; margin-top:8px;" onclick="toggleCart(true)">Open Cart Window</button>
+        </div>
+      </div>
+
+      <div class="win">
+        <div class="titlebar">
+          <span class="titlebar-icon">➕</span>
+          <span class="titlebar-text">Add Contact</span>
+        </div>
+        <div class="newsletter-body">
+          <p>Get pinged when new drops go online (no spam, just sparkle).</p>
+          <input class="nl-input sunken" type="email" placeholder="your@email.com">
+          <button class="btn3d" style="width:100%;" onclick="subscribeMsg()">Add to Contacts</button>
+        </div>
+      </div>
+
+      <div class="win">
+        <div class="titlebar">
+          <span class="titlebar-icon">📊</span>
+          <span class="titlebar-text">Site Counter</span>
+        </div>
+        <div class="counter-box">
+          you are visitor number
+          <div class="counter-digits"><span>0</span><span>0</span><span>4</span><span>2</span><span>1</span><span>7</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="status-strip">☆ILYNoxia☆ · thanks for stopping by · <a href="#">sign the guestbook</a> · this is a demo storefront</div>
+    <div class="webring">« <a href="#">prev</a> — ILYNoxia Fan Webring — <a href="#">next</a> » &nbsp; | &nbsp; last updated: never (it's a demo)</div>
+  </footer>
+
+  <!-- LEGAL FOOTER -->
+  <div class="legal-bar">
+    <div class="legal-links">
+      <a onclick="openLegal('terms')">Terms of Service</a><span class="sep">|</span>
+      <a onclick="openLegal('privacy')">Privacy Policy</a><span class="sep">|</span>
+      <a onclick="openLegal('shipping')">Shipping &amp; Returns</a><span class="sep">|</span>
+      <a onclick="openLegal('cookies')">Cookie Policy</a><span class="sep">|</span>
+      <a onclick="openLegal('accessibility')">Accessibility Statement</a><span class="sep">|</span>
+      <a onclick="openLegal('dmca')">Copyright / DMCA</a><span class="sep">|</span>
+      <a onclick="openLegal('contact')">Contact &amp; Business Info</a>
+    </div>
+    <div class="copyright-line">© <span id="copyYear"></span> ILYNoxia Merch, a fictional demo storefront. All rights reserved. ☆ILYNoxia☆ and related marks are used with permission of the artist.</div>
+    <div class="biz-info">[Business Name / LLC] · [Street Address, City, State ZIP, USA] · <a href="mailto:hello@ilynoxia.example">hello@ilynoxia.example</a></div>
+  </div>
+  <div class="legal-disclaimer">
+    <div class="legal-disclaimer-box">⚠ Placeholder legal text for demo purposes only — not legal advice. Have a licensed attorney review and customize every policy below before taking this site live.</div>
+  </div>
+
+  <!-- Cart window modal -->
+  <div class="modal-overlay" id="cartOverlay" onclick="if(event.target===this) toggleCart(false)">
+    <div class="win product-modal">
+      <div class="titlebar">
+        <span class="titlebar-icon">🛒</span>
+        <span class="titlebar-text">Shopping Cart.exe</span>
+        <div class="winbtn">_</div>
+        <div class="winbtn">□</div>
+        <div class="winbtn close" style="cursor:pointer;" onclick="toggleCart(false)">X</div>
+      </div>
+      <div class="cart-body">
+        <div id="modalCartList"><div class="cart-empty">Your cart is empty. Go click on some merch! ✦</div></div>
+        <div class="cart-total" id="modalCartTotal" style="display:none;"><span>Total</span><span id="modalCartTotalAmt">$0</span></div>
+        <button class="btn3d green" style="width:100%; margin-top:12px;" onclick="checkout()">▶ Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product detail modal -->
+  <div class="modal-overlay" id="productOverlay" onclick="if(event.target===this) closeProductModal()">
+    <div class="win product-modal" id="productModalWin">
+      <div class="titlebar">
+        <span class="titlebar-icon">🏷️</span>
+        <span class="titlebar-text" id="pmTitlebarText">Item Details</span>
+        <div class="winbtn">_</div>
+        <div class="winbtn">□</div>
+        <div class="winbtn close" style="cursor:pointer;" onclick="closeProductModal()">X</div>
+      </div>
+      <div class="pm-body">
+        <div class="pm-gallery">
+          <div class="pm-main-photo sunken" id="pmMainPhoto">☆</div>
+          <div class="pm-thumbs" id="pmThumbs"></div>
+        </div>
+        <div class="pm-details">
+          <div class="pm-name" id="pmName">Item Name</div>
+          <div class="pm-status" id="pmStatus">Online — In Stock</div>
+          <div class="pm-price" id="pmPrice">$0</div>
+          <div class="pm-away" id="pmAway">"..."</div>
+          <ul class="pm-desc" id="pmDesc"></ul>
+
+          <div id="pmSizeBlock">
+            <div class="pm-field-label">Size</div>
+            <div class="size-row" id="pmSizeRow"></div>
+          </div>
+
+          <div class="pm-field-label">Quantity</div>
+          <div class="qty-row">
+            <button class="btn3d" onclick="changeQty(-1)">−</button>
+            <span class="qty-num" id="pmQty">1</span>
+            <button class="btn3d" onclick="changeQty(1)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="pm-footer">
+        <span class="pm-size-warning" id="pmSizeWarning">please pick a size!</span>
+        <button class="btn3d green" style="margin-left:auto;" onclick="addModalToCart()">Add to Cart ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- Legal document modal -->
+  <div class="modal-overlay" id="legalOverlay" onclick="if(event.target===this) closeLegal()">
+    <div class="win legal-modal">
+      <div class="titlebar">
+        <span class="titlebar-icon">📄</span>
+        <span class="titlebar-text" id="legalTitlebarText">Legal Document</span>
+        <div class="winbtn">_</div>
+        <div class="winbtn">□</div>
+        <div class="winbtn close" style="cursor:pointer;" onclick="closeLegal()">X</div>
+      </div>
+      <div class="win-body">
+        <div class="legal-text" id="legalText"></div>
+        <div class="legal-modal-footer">
+          <button class="btn3d" onclick="closeLegal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cookie consent bar -->
+  <div class="cookie-bar" id="cookieBar">
+    <span class="cookie-icon">🍪</span>
+    <p>This site uses cookies to remember your cart and keep the shop running smoothly. By continuing to browse, you agree to our <a onclick="openLegal('cookies')" style="color:#0000EE; cursor:pointer;">Cookie Policy</a>.</p>
+    <div class="btns">
+      <button class="btn3d green small" onclick="dismissCookieBar()">Accept</button>
+      <button class="btn3d small" onclick="openLegal('cookies')">Learn More</button>
+    </div>
+  </div>
+
+<script>
+const products = [
+  {id:1, name:"Close My Eyes Tee", avatar:"T", color:"#3f8cd6", status:"online", statusText:"Online — In Stock", msg:"brb changing the world one hook at a time", price:28, isNew:true,
+   sizes:["S","M","L","XL"],
+   desc:["100% ringspun cotton, unisex fit","Screen-printed front graphic","Ships in 3–5 business days","Machine wash cold, hang dry"]},
+  {id:2, name:"Vista Dreams Hoodie", avatar:"H", color:"#8a5fd6", status:"online", statusText:"Online — In Stock", msg:"vibing w/ aero glass and reverb rn", price:58, isNew:true,
+   sizes:["S","M","L","XL","XXL"],
+   desc:["Heavyweight fleece, kangaroo pocket","Embroidered star logo on chest","Ships in 3–5 business days","Runs slightly oversized"]},
+  {id:3, name:"ILYNoxia Snapback", avatar:"C", color:"#e0923a", status:"away", statusText:"Away — Low Stock", msg:"afk stacking harmonies, back soon", price:24, isNew:false,
+   sizes:["One Size"],
+   desc:["Adjustable strap back","Embroidered ☆ logo","Only a few left in this batch"]},
+  {id:4, name:'"Close My Eyes" Vinyl 7"', avatar:"♪", color:"#c23a52", status:"busy", statusText:"Busy — Limited Drop", msg:"recording... do not disturb", price:32, isNew:true,
+   sizes:null,
+   desc:["Limited pressing of 200 copies","Includes lyric insert + sticker","Numbered edition, ships in a rigid mailer"]},
+  {id:5, name:"Star Pin Set", avatar:"☆", color:"#4fa63a", status:"online", statusText:"Online — In Stock", msg:"sparkly & small, like a good hook", price:12, isNew:false,
+   sizes:null,
+   desc:["Set of 3 hard enamel pins","Butterfly clutch backing","Comes on a mini backing card"]},
+  {id:6, name:"Aero Tote Bag", avatar:"B", color:"#2f9c96", status:"online", statusText:"Online — In Stock", msg:"holding all ur vibes (and groceries)", price:22, isNew:false,
+   sizes:["One Size"],
+   desc:["Heavy canvas, reinforced straps","Fits a laptop + notebook easily","Printed both sides"]},
+];
+
+let cart = [];
+let activeProduct = null;
+let activeSize = null;
+let activeQty = 1;
+let activePhoto = 0;
+
+function renderBuddyList(){
+  const list = document.getElementById('buddyList');
+  list.innerHTML = products.map(p => `
+    <div class="buddy" id="buddy-${p.id}" onclick="openProductModal(${p.id})">
+      <div class="avatar" style="background:${p.color}">
+        ${p.avatar}
+        <span class="status-badge ${p.status}"></span>
+      </div>
+      <div class="buddy-info">
+        <div class="buddy-name">☆${p.name}☆ <span class="buddy-status-text ${p.status}">${p.statusText}</span>${p.isNew ? '<span class="new-badge">NEW</span>' : ''}</div>
+        <div class="buddy-msg">${p.msg}</div>
+      </div>
+      <div class="buddy-right">
+        <span class="price-tag">$${p.price}</span>
+        <button class="btn3d small" onclick="event.stopPropagation(); openProductModal(${p.id})">View Item</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ===== Product detail modal ===== */
+function openProductModal(id){
+  const p = products.find(x => x.id === id);
+  activeProduct = p;
+  activeSize = p.sizes ? null : "One Size";
+  activeQty = 1;
+  activePhoto = 0;
+
+  document.getElementById('pmTitlebarText').textContent = p.name + " - Item Details";
+  document.getElementById('pmName').textContent = "☆" + p.name + "☆";
+  document.getElementById('pmStatus').textContent = p.statusText;
+  document.getElementById('pmStatus').style.color = p.status === 'online' ? '#2e8a2e' : (p.status === 'away' ? '#a67014' : '#a41e33');
+  document.getElementById('pmPrice').textContent = "$" + p.price;
+  document.getElementById('pmAway').textContent = '💬 "' + p.msg + '"';
+  document.getElementById('pmDesc').innerHTML = p.desc.map(d => `<li>${d}</li>`).join('');
+  document.getElementById('pmMainPhoto').style.background = p.color;
+  document.getElementById('pmMainPhoto').textContent = p.avatar;
+  document.getElementById('pmQty').textContent = activeQty;
+
+  const photoLabels = ["Front", "Back", "Detail"];
+  document.getElementById('pmThumbs').innerHTML = photoLabels.map((lbl,i) => `
+    <div class="pm-thumb ${i===0?'active':''}" style="background:${p.color}; opacity:${i===0?1:0.6};" onclick="selectPhoto(${i}, this)" title="${lbl}">${p.avatar}</div>
+  `).join('');
+
+  const sizeBlock = document.getElementById('pmSizeBlock');
+  if(p.sizes){
+    sizeBlock.style.display = 'block';
+    document.getElementById('pmSizeRow').innerHTML = p.sizes.map(s => `
+      <div class="size-pill" onclick="selectSize('${s}', this)">${s}</div>
+    `).join('');
+  } else {
+    sizeBlock.style.display = 'none';
+  }
+  document.getElementById('pmSizeWarning').style.visibility = 'hidden';
+
+  document.getElementById('productOverlay').classList.add('open');
+}
+
+function selectPhoto(i, el){
+  activePhoto = i;
+  [...el.parentElement.children].forEach(c => { c.classList.remove('active'); c.style.opacity = 0.6; });
+  el.classList.add('active'); el.style.opacity = 1;
+}
+
+function selectSize(s, el){
+  activeSize = s;
+  [...el.parentElement.children].forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('pmSizeWarning').style.visibility = 'hidden';
+}
+
+function changeQty(delta){
+  activeQty = Math.max(1, activeQty + delta);
+  document.getElementById('pmQty').textContent = activeQty;
+}
+
+function closeProductModal(){
+  document.getElementById('productOverlay').classList.remove('open');
+}
+
+function addModalToCart(){
+  const p = activeProduct;
+  if(p.sizes && !activeSize){
+    document.getElementById('pmSizeWarning').style.visibility = 'visible';
+    return;
+  }
+  for(let i=0;i<activeQty;i++){
+    cart.push({ id:p.id, name:p.name, price:p.price, size: p.sizes ? activeSize : null });
+  }
+  const buddyEl = document.getElementById('buddy-'+p.id);
+  if(buddyEl){ buddyEl.classList.remove('flash'); void buddyEl.offsetWidth; buddyEl.classList.add('flash'); }
+  showToast(`✦ ${p.name}${activeSize && p.sizes ? ' (' + activeSize + ')' : ''} x${activeQty} added to cart!`);
+  renderCart();
+  closeProductModal();
+}
+
+/* ===== Cart ===== */
+function removeFromCart(index){
+  cart.splice(index,1);
+  renderCart();
+}
+
+function renderCart(){
+  document.getElementById('cartCount').textContent = cart.length;
+  const total = cart.reduce((s,p)=>s+p.price,0);
+
+  const renderList = (targetId, totalId, totalAmtId) => {
+    const target = document.getElementById(targetId);
+    if(cart.length === 0){
+      target.innerHTML = '<div class="cart-empty">Click an item to add it here ✦</div>';
+      document.getElementById(totalId).style.display = 'none';
+      return;
+    }
+    target.innerHTML = cart.map((p,i)=>`
+      <div class="cart-item">
+        <span class="name">☆${p.name}☆${p.size ? `<br><span class="meta">Size: ${p.size}</span>` : ''}</span>
+        <span>$${p.price}</span>
+        <button class="cart-remove" onclick="removeFromCart(${i})">✕</button>
+      </div>
+    `).join('');
+    document.getElementById(totalId).style.display = 'flex';
+    document.getElementById(totalAmtId).textContent = '$'+total;
+  };
+
+  renderList('sidebarCartList','sidebarCartTotal','sidebarCartTotalAmt');
+  renderList('modalCartList','modalCartTotal','modalCartTotalAmt');
+}
+
+function toggleCart(open){
+  document.getElementById('cartOverlay').classList.toggle('open', open);
+}
+
+function checkout(){
+  if(cart.length === 0){ showToast("Your cart is empty! ✦"); return; }
+  showToast("✿ This is a demo store — no real order was placed ✿");
+}
+
+function subscribeMsg(){
+  showToast("💌 Added to contacts! (demo only, no email sent)");
+}
+
+let toastTimer;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=> t.classList.remove('show'), 2600);
+}
+
+function updateClock(){
+  const now = new Date();
+  let h = now.getHours(); const m = now.getMinutes();
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12; if(h===0) h = 12;
+  document.getElementById('clockBox').textContent = `${h}:${m.toString().padStart(2,'0')} ${ampm}`;
+}
+
+renderBuddyList();
+renderCart();
+updateClock();
+setInterval(updateClock, 30000);
+
+/* ===== Legal content ===== */
+document.getElementById('copyYear').textContent = new Date().getFullYear();
+
+const legalDocs = {
+  terms: {
+    title: "Terms of Service",
+    html: `
+      <h3>1. Agreement to Terms</h3>
+      <p>By accessing or purchasing from this website ("Site"), you agree to be bound by these Terms of Service. If you do not agree, do not use the Site.</p>
+      <h3>2. Products &amp; Pricing</h3>
+      <p>All prices are listed in U.S. Dollars (USD) and are subject to change without notice. We reserve the right to limit quantities and to refuse or cancel any order at our discretion.</p>
+      <h3>3. Orders &amp; Payment</h3>
+      <p>Orders are not confirmed until payment is authorized. We use third-party payment processors and do not store full payment card details on our servers.</p>
+      <h3>4. Intellectual Property</h3>
+      <p>All artwork, logos, music, and branding on this Site, including the ☆ILYNoxia☆ name and mark, are the property of their respective owners and may not be reproduced without written permission.</p>
+      <h3>5. Limitation of Liability</h3>
+      <p>The Site and products are provided "as is." To the fullest extent permitted by law, we are not liable for indirect, incidental, or consequential damages arising from use of the Site or products purchased through it.</p>
+      <h3>6. Governing Law</h3>
+      <p>These Terms are governed by the laws of the State of [Your State], United States, without regard to conflict-of-law principles.</p>
+      <h3>7. Changes to These Terms</h3>
+      <p>We may update these Terms at any time. Continued use of the Site after changes constitutes acceptance of the revised Terms.</p>
+      <h3>8. Contact</h3>
+      <p>Questions about these Terms can be sent to <a href="mailto:hello@ilynoxia.example">hello@ilynoxia.example</a>.</p>
+    `
+  },
+  privacy: {
+    title: "Privacy Policy",
+    html: `
+      <h3>Information We Collect</h3>
+      <p>When you place an order or sign up for updates, we may collect your name, email address, shipping address, and payment information (processed securely by our payment provider).</p>
+      <h3>How We Use It</h3>
+      <ul>
+        <li>To process and ship your orders</li>
+        <li>To send order confirmations and shipping updates</li>
+        <li>To send marketing emails, only if you opted in — you can unsubscribe at any time</li>
+        <li>To improve the Site and prevent fraud</li>
+      </ul>
+      <h3>Cookies</h3>
+      <p>We use cookies for core functionality like remembering items in your cart. See our Cookie Policy for details.</p>
+      <h3>Your Rights (CCPA &amp; State Privacy Laws)</h3>
+      <p>Depending on your state of residence, you may have the right to request access to, deletion of, or a copy of your personal information, and to opt out of the sale or sharing of personal information. To make a request, contact <a href="mailto:hello@ilynoxia.example">hello@ilynoxia.example</a>.</p>
+      <h3>Third Parties</h3>
+      <p>We share information only with service providers necessary to fulfill orders (e.g. payment processors, shipping carriers) and do not sell personal information to third parties.</p>
+      <h3>Children's Privacy</h3>
+      <p>This Site is not directed to children under 13, and we do not knowingly collect personal information from children under 13, in accordance with COPPA.</p>
+      <h3>Contact</h3>
+      <p>Privacy questions: <a href="mailto:hello@ilynoxia.example">hello@ilynoxia.example</a>.</p>
+    `
+  },
+  shipping: {
+    title: "Shipping & Returns Policy",
+    html: `
+      <h3>Shipping</h3>
+      <p>Orders are typically processed within 3–5 business days. Shipping times vary by location and shipping method selected at checkout. We currently ship within the United States; international shipping availability may vary.</p>
+      <h3>Shipping Costs</h3>
+      <p>Shipping costs are calculated at checkout based on weight and destination. Any customs, duties, or import taxes on international orders are the responsibility of the customer.</p>
+      <h3>Returns &amp; Exchanges</h3>
+      <p>We accept returns of unworn, unwashed items with tags attached within 30 days of delivery. To start a return, email <a href="mailto:hello@ilynoxia.example">hello@ilynoxia.example</a> with your order number.</p>
+      <h3>Non-Returnable Items</h3>
+      <ul>
+        <li>Limited-edition vinyl once opened</li>
+        <li>Final sale / clearance items</li>
+        <li>Gift cards</li>
+      </ul>
+      <h3>Damaged or Incorrect Items</h3>
+      <p>If your order arrives damaged or incorrect, contact us within 7 days of delivery for a free replacement or refund.</p>
+      <h3>Refunds</h3>
+      <p>Approved refunds are issued to your original payment method within 5–10 business days of us receiving the returned item.</p>
+    `
+  },
+  cookies: {
+    title: "Cookie Policy",
+    html: `
+      <h3>What Are Cookies</h3>
+      <p>Cookies are small text files stored on your device that help websites function and remember information about your visit.</p>
+      <h3>How We Use Cookies</h3>
+      <ul>
+        <li><b>Essential cookies</b> — keep items in your cart and let you check out</li>
+        <li><b>Analytics cookies</b> — help us understand how visitors use the Site (if enabled)</li>
+        <li><b>Preference cookies</b> — remember settings like whether you've dismissed this banner</li>
+      </ul>
+      <h3>Managing Cookies</h3>
+      <p>Most browsers let you block or delete cookies in their settings. Blocking essential cookies may prevent parts of the Site, like the shopping cart, from working correctly.</p>
+      <h3>Third-Party Cookies</h3>
+      <p>Payment and analytics providers we use may set their own cookies, governed by their respective privacy policies.</p>
+    `
+  },
+  accessibility: {
+    title: "Accessibility Statement",
+    html: `
+      <h3>Our Commitment</h3>
+      <p>We are committed to making this Site usable by the widest possible audience, including people with disabilities, and to conforming with the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA where feasible.</p>
+      <h3>Ongoing Efforts</h3>
+      <ul>
+        <li>Maintaining sufficient color contrast and readable text sizing</li>
+        <li>Supporting keyboard navigation for interactive elements</li>
+        <li>Providing descriptive labels for buttons, links, and form fields</li>
+      </ul>
+      <h3>Feedback</h3>
+      <p>If you encounter an accessibility barrier on this Site, please let us know at <a href="mailto:hello@ilynoxia.example">hello@ilynoxia.example</a> so we can address it. We aim to respond within 5 business days.</p>
+    `
+  },
+  dmca: {
+    title: "Copyright / DMCA Notice",
+    html: `
+      <h3>Copyright</h3>
+      <p>All content on this Site — including designs, photos, music, and text — is © ${new Date().getFullYear()} its respective owner(s) and may not be copied, reproduced, or distributed without prior written permission.</p>
+      <h3>DMCA Takedown Requests</h3>
+      <p>If you believe content on this Site infringes your copyright, you may submit a notice under the Digital Millennium Copyright Act (17 U.S.C. § 512) to our designated agent at <a href="mailto:legal@ilynoxia.example">legal@ilynoxia.example</a>, including:</p>
+      <ul>
+        <li>A description of the copyrighted work claimed to be infringed</li>
+        <li>The location (URL) of the allegedly infringing material</li>
+        <li>Your contact information</li>
+        <li>A statement of good-faith belief that the use is unauthorized</li>
+        <li>A statement, under penalty of perjury, that the notice is accurate and you are authorized to act on the copyright owner's behalf</li>
+        <li>Your physical or electronic signature</li>
+      </ul>
+    `
+  },
+  contact: {
+    title: "Contact & Business Information",
+    html: `
+      <h3>Business Entity</h3>
+      <p>[Business/Legal Entity Name] · [Street Address, City, State ZIP] · United States</p>
+      <h3>Customer Support</h3>
+      <p>Email: <a href="mailto:hello@ilynoxia.example">hello@ilynoxia.example</a><br>Response time: within 2 business days</p>
+      <h3>Sales Tax</h3>
+      <p>Applicable state and local sales tax is calculated and added at checkout based on your shipping address, as required by U.S. law.</p>
+      <h3>Email Marketing (CAN-SPAM)</h3>
+      <p>If you subscribe to updates, every marketing email will include our physical business address and a working unsubscribe link, in accordance with the CAN-SPAM Act.</p>
+    `
+  }
+};
+
+function openLegal(key){
+  const doc = legalDocs[key];
+  if(!doc) return;
+  document.getElementById('legalTitlebarText').textContent = doc.title;
+  document.getElementById('legalText').innerHTML = doc.html;
+  document.getElementById('legalOverlay').classList.add('open');
+}
+
+function closeLegal(){
+  document.getElementById('legalOverlay').classList.remove('open');
+}
+
+/* ===== Cookie consent bar ===== */
+let cookieConsentGiven = false;
+function dismissCookieBar(){
+  cookieConsentGiven = true;
+  document.getElementById('cookieBar').classList.remove('show');
+}
+setTimeout(() => {
+  if(!cookieConsentGiven) document.getElementById('cookieBar').classList.add('show');
+}, 900);
+</script>
+</body>
+</html>
