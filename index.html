@@ -894,6 +894,20 @@ function addModalToCart(){
   const buddyEl = document.getElementById('buddy-'+p.id);
   if(buddyEl){ buddyEl.classList.remove('flash'); void buddyEl.offsetWidth; buddyEl.classList.add('flash'); }
   showToast(`✦ ${p.name}${sizeLabel ? ' (' + sizeLabel + ')' : ''} x${activeQty} added to cart!`);
+  // Check for a pending cart from sessionStorage
+const pendingCart = sessionStorage.getItem('pendingCart');
+if (pendingCart) {
+    try {
+        const items = JSON.parse(pendingCart);
+        cart = items;
+        sessionStorage.removeItem('pendingCart'); // Clear it so it doesn't persist
+        renderCart();
+        // Optional: automatically open the cart modal
+        // toggleCart(true);
+    } catch (e) {
+        console.error('Failed to load pending cart', e);
+    }
+}
   renderCart();
   closeProductModal();
 }
