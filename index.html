@@ -1071,7 +1071,33 @@ function updateClock(){
   h = h % 12; if(h===0) h = 12;
   document.getElementById('clockBox').textContent = `${h}:${m.toString().padStart(2,'0')} ${ampm}`;
 }
-
+// Check for a pending product from Instagram Shop
+const pendingProductId = sessionStorage.getItem('pendingProductId');
+if (pendingProductId) {
+    try {
+        // Find the product in your products array
+        const product = products.find(p => p.id == pendingProductId);
+        if (product) {
+            // Add the product to the cart
+            cart.push({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                size: 'Standard' // or whatever default size makes sense
+            });
+            renderCart();
+            showToast(`✦ ${product.name} added to your cart!`);
+            
+            // Optional: automatically open the cart
+            // toggleCart(true);
+        } else {
+            console.error('Product not found:', pendingProductId);
+        }
+        sessionStorage.removeItem('pendingProductId');
+    } catch (e) {
+        console.error('Failed to load pending product', e);
+    }
+}
 renderBuddyList();
 renderCart();
 updateClock();
