@@ -2,62 +2,24 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Loading your cart...</title>
+    <title>Adding to your cart...</title>
     <script>
-        // Redirect to the main page with cart data in the URL
         (function() {
-            // Example: ?items=product1,product2,product3
-            // Or use a more structured format like: ?cart=[{"id":1,"name":"Tee","price":29.99}]
+            // Get the product ID from the URL
             const urlParams = new URLSearchParams(window.location.search);
-            const cartData = urlParams.get('cart');
+            const productId = urlParams.get('id');
 
-            if (cartData) {
-                // Store cart data in sessionStorage so it survives the redirect
-                try {
-                    const items = JSON.parse(decodeURIComponent(cartData));
-                    sessionStorage.setItem('pendingCart', JSON.stringify(items));
-                } catch (e) {
-                    console.error('Invalid cart data', e);
-                }
+            if (productId) {
+                // Store the product ID to be processed on the main page
+                sessionStorage.setItem('pendingProductId', productId);
             }
 
-            // Redirect to the main page
+            // Redirect to the main shop
             window.location.href = '/';
         })();
     </script>
 </head>
 <body>
-    <p>Loading your cart...</p>
-</body>
-</html><!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Loading your cart...</title>
-    <script>
-        // Redirect to the main page with cart data in the URL
-        (function() {
-            // Example: ?items=product1,product2,product3
-            // Or use a more structured format like: ?cart=[{"id":1,"name":"Tee","price":29.99}]
-            const urlParams = new URLSearchParams(window.location.search);
-            const cartData = urlParams.get('cart');
-
-            if (cartData) {
-                // Store cart data in sessionStorage so it survives the redirect
-                try {
-                    const items = JSON.parse(decodeURIComponent(cartData));
-                    sessionStorage.setItem('pendingCart', JSON.stringify(items));
-                } catch (e) {
-                    console.error('Invalid cart data', e);
-                }
-            }
-
-            // Redirect to the main page
-            window.location.href = '/';
-        })();
-    </script>
-</head>
-<body>
-    <p>Loading your cart...</p>
+    <p>Adding item to your cart...</p>
 </body>
 </html>
